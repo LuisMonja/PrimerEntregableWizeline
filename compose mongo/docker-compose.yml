@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - my-mongo-network
+    ports:
+    - '127.0.0.1:27018:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+  mongo2:
+    image: mongo
+    restart: always
+    networks:
+      - my-mongo-network
+    ports:
+    - '127.0.0.1:27019:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+  mongo3:
+    image: mongo
+    restart: always
+    networks:
+      - my-mongo-network
+    ports:
+    - '127.0.0.1:27020:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+networks:
+ my-mongo-network: 
+   driver: bridge
